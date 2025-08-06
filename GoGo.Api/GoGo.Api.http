@@ -1,0 +1,6 @@
+@GoGo.Api_HostAddress = http://localhost:5289
+
+GET {{GoGo.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
