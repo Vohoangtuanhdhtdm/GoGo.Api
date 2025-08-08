@@ -20,6 +20,6 @@ namespace GoGo.Core.Entities
 
         // Navigation
         public Module? Module { get; set; }
-        public LessonCompletion? LessonCompletion { get; set; }
+      
     }
 }
