@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,11 @@ namespace GoGo.Core.Entities
         public int? Duration { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? Price { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? PriceSale { get; set;}
         public string? SkillLevel { get; set; }
 
