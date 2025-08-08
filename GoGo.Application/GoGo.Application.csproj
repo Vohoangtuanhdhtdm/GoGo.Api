@@ -7,11 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GoGo.Core\GoGo.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\Course\" />
+    <Folder Include="Commands\Enrollment\" />
+    <Folder Include="Commands\Lesson\" />
+    <Folder Include="Commands\LessonCompletion\" />
+    <Folder Include="Commands\Module\" />
+    <Folder Include="Commands\User\" />
+    <Folder Include="Queries\Course\" />
+    <Folder Include="Queries\Enrollment\" />
+    <Folder Include="Queries\LessonCompletion\" />
+    <Folder Include="Queries\Lesson\" />
+    <Folder Include="Queries\Module\" />
+    <Folder Include="Queries\User\" />
   </ItemGroup>
 
 </Project>
