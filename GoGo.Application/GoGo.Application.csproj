@@ -16,18 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Course\" />
-    <Folder Include="Commands\Enrollment\" />
-    <Folder Include="Commands\Lesson\" />
-    <Folder Include="Commands\LessonCompletion\" />
-    <Folder Include="Commands\Module\" />
-    <Folder Include="Commands\User\" />
-    <Folder Include="Queries\Course\" />
-    <Folder Include="Queries\Enrollment\" />
-    <Folder Include="Queries\LessonCompletion\" />
-    <Folder Include="Queries\Lesson\" />
-    <Folder Include="Queries\Module\" />
-    <Folder Include="Queries\User\" />
+    <Folder Include="Features\Courses\Commands\" />
+    <Folder Include="Features\Courses\Queries\" />
   </ItemGroup>
 
 </Project>

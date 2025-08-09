@@ -9,10 +9,10 @@ namespace GoGo.Core.Interfaces
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetAllUser();
-        Task<User> GetUserById(Guid UserId);
-        Task<User> UpdateUserAsync(User User);     
-        Task<User> AddUserAsync(User User);
-        Task<bool> DeleteUserAsync(Guid UserId);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task<User?> GetByIdAsync(Guid id);
+        Task AddAsync(User user);
+        Task UpdateAsync(User user);
+        Task DeleteAsync(Guid id);
     }
 }

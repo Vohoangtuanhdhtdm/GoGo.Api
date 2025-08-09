@@ -1,26 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoGo.Core.Entities
 {
     public class Module
     {
-        // Thuộc tính
-        public Guid Id { get; set; }
-        public required string Title { get; set; }
-        public string? Description { get; set; }
-        public required int DisplayOrder { get; set; }
-        public int Duration { get; set; }
+        private readonly List<Lesson> _lessons = new();
 
-        // Quan hệ
-        public Guid? CoursesId { get; set; }
+        #region Thông tin cơ bản
+        public Guid Id { get; private set; }
+        public string Title { get; private set; }
+        public string? Description { get; private set; }
+        public int DisplayOrder { get; private set; }
+        #endregion
 
-        // Navigation
-        public Course? Course { get; set; }
-        public ICollection<Lesson>? Lessons { get; set; }
-        
+        #region Quan hệ
+        public Guid CoursesId { get; private set; }
+        #endregion
+
+        #region Navigation Properties
+        public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();
+        #endregion
+
+        private Module() { } // Dành cho EF Core
+
+        // Constructor 'internal' để chỉ có thể được gọi từ bên trong cùng assembly (từ Course)
+        internal Module(string title, string? description, int displayOrder, Guid courseId)
+        {
+            Id = Guid.NewGuid();
+            Title = title;
+            Description = description;
+            DisplayOrder = displayOrder;
+            CoursesId = courseId;
+        }
+
+        #region Các phương thức hành vi
+        public void AddLesson(string title, string videoUrl, int durationInSeconds, string? content = null)
+        {
+            var newLesson = new Lesson(title, videoUrl, content, durationInSeconds, _lessons.Count + 1, Id);
+            _lessons.Add(newLesson);
+        }
+        #endregion
     }
 }

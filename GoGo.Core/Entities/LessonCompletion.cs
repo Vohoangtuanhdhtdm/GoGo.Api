@@ -1,26 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoGo.Core.Entities
 {
     public class LessonCompletion
     {
-        // Thuộc tính
-        
-        public Guid Id { get; set; }
-        public DateTime? CompletedAt { get; set; }
+        #region Thông tin cơ bản
+        public Guid Id { get; private set; }
+        public DateTime CompletedAt { get; private set; }
+        #endregion
 
-        // Quan hệ
-        public Guid? EnrollmentId { get; set; }
-        public Guid? LessonId { get; set; }   
+        #region Quan hệ
+        public Guid EnrollmentId { get; private set; }
+        public Guid LessonId { get; private set; }
+        #endregion
 
+        private LessonCompletion() { } // Dành cho EF Core
 
-        // Navigation
-        public Enrollment? Enrollment { get; set; }
-        public Lesson? Lesson { get; set; }
-        
+        public LessonCompletion(Guid enrollmentId, Guid lessonId)
+        {
+            Id = Guid.NewGuid();
+            EnrollmentId = enrollmentId;
+            LessonId = lessonId;
+            CompletedAt = DateTime.UtcNow;
+        }
     }
 }
+
+
+// Bắt buộc phải thêm private LessonCompletion() {} cho LessonCompletion
+// vì bạn đã tạo một constructor khác,làm mất đi cái "miễn phí" kia.
