@@ -12,64 +12,43 @@ namespace GoGo.Infrastructure.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
-        private readonly GoGoDbContext _goGoDbContext;
+        private readonly GoGoDbContext _context;
 
-        public CourseRepository(GoGoDbContext goGoDbContext)
-        {
-            _goGoDbContext = goGoDbContext;
-        }
-
-
-        public async Task<Course> AddCourseAsync(Course Course)
-        {
-            await _goGoDbContext.Courses.AddAsync(Course);
-            await _goGoDbContext.SaveChangesAsync();
-            return Course;
-        }
-
-        public async Task<bool> DeleteCourseAsync(Guid CourseId)
-        {
-            var CourseToDelete = await _goGoDbContext.Courses.FindAsync(CourseId);
-
-            if (CourseToDelete == null)
-            {
-                return false;
-            }
-            _goGoDbContext.Courses.Remove(CourseToDelete);
-            await _goGoDbContext.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<IEnumerable<Course>> GetAllCourse()
-        {
-            return await _goGoDbContext.Courses.ToListAsync();
-        }
-
-        public async Task<Course?> GetCourseById(Guid CourseId)
-        {
-            // trả về null nếu không tìm thấy
-            return await _goGoDbContext.Courses.FindAsync(CourseId);
-        }
-
-        public async Task<Course?> UpdateCourseAsync(Course course)
-        {
-            var existingCourse = await _goGoDbContext.Courses.FindAsync(course.Id);
-            if (existingCourse == null)
-            {
-                return null;
-            }
-            existingCourse.Name = course.Name;
-            existingCourse.Description = course.Description;
-            existingCourse.ThumbnailUrl = course.ThumbnailUrl;
-            existingCourse.Status = course.Status;
-            existingCourse.Price = course.Price;
-            existingCourse.PriceSale = course.PriceSale;
-            existingCourse.SkillLevel = course.SkillLevel;
-
+        public CourseRepository(GoGoDbContext context) 
+        { 
+            _context = context;
             
-            existingCourse.UpdatedAt = DateTime.UtcNow;
-            await _goGoDbContext.SaveChangesAsync();
-            return existingCourse;
+        }
+        public async Task<Course?> GetByIdAsync(Guid id)
+        {
+            // Phải Include các thực thể con để tải toàn bộ Aggregate
+            return await _context.Courses
+                .Include(c => c.Modules)
+                .ThenInclude(m => m.Lessons)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+        public async Task<IEnumerable<Course>> GetAllAsync()
+        {
+            // Khi lấy danh sách, thường không cần tải chi tiết để tối ưu hiệu năng
+            return await _context.Courses.ToListAsync();
+        }
+        public async Task AddAsync(Course course)
+        {
+            await _context.Courses.AddAsync(course);
+        }
+        public Task UpdateAsync(Course course)
+        {
+            // EF Core Change Tracker sẽ tự xử lý các thay đổi
+            _context.Courses.Update(course);
+            return Task.CompletedTask;
+        }
+        public async Task DeleteAsync(Guid id)
+        {
+            var courseToDelete = await _context.Courses.FindAsync(id);
+            if (courseToDelete != null)
+            {
+                _context.Courses.Remove(courseToDelete);
+            }
         }
     }
 }

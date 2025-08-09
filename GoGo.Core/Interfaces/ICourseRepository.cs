@@ -9,10 +9,10 @@ namespace GoGo.Core.Interfaces
 {
     public interface ICourseRepository
     {
-        Task<IEnumerable<Course>> GetAllCourse();
-        Task<Course> GetCourseById(Guid CourseId);
-        Task<Course> UpdateCourseAsync(Course Course);
-        Task<Course> AddCourseAsync(Course Course);
-        Task<bool> DeleteCourseAsync(Guid CourseId);
+        Task<IEnumerable<Course>> GetAllAsync();
+        Task<Course?> GetByIdAsync(Guid id);  // Trả về nullable để thể hiện có thể không tìm thấy
+        Task AddAsync(Course course);
+        Task UpdateAsync(Course course);
+        Task DeleteAsync(Guid id);
     }
 }

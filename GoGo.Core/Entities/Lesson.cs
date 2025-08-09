@@ -1,25 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoGo.Core.Entities
 {
     public class Lesson
     {
-        // Thuộc tính
-        public Guid Id { get; set; }
-        public string? Title { get; set; }
-        public string? Description { get; set; }
-        public required string VideoUrl { get; set; }
-        public string? Content { get; set; }
+        #region Thông tin cơ bản
+        public Guid Id { get; private set; }
+        public string Title { get; private set; }
+        public string? Description { get; private set; }
+        public string VideoUrl { get; private set; }
+        public string? Content { get; private set; }
+        public int Duration { get; private set; }
+        public int DisplayOrder { get; private set; }
+        #endregion
 
-        // Quan hệ
-        public Guid? ModuleId { get; set; }
+        #region Quan hệ
+        public Guid ModuleId { get; private set; }
+        #endregion
 
-        // Navigation
-        public Module? Module { get; set; }
-      
+        private Lesson() { } // Dành cho EF Core
+
+        internal Lesson(
+            string title,
+            string videoUrl,
+            string? content,
+            int duration,
+            int displayOrder,
+            Guid moduleId)
+        {
+            Id = Guid.NewGuid();
+            Title = title;
+            VideoUrl = videoUrl;
+            Content = content;
+            Duration = duration;
+            DisplayOrder = displayOrder;
+            ModuleId = moduleId;
+        }
     }
 }
