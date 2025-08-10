@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GoGo.Application\GoGo.Application.csproj" />
+    <ProjectReference Include="..\GoGo.Core\GoGo.Core.csproj" />
   </ItemGroup>
 
 </Project>
