@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoGo.Infrastructure.UnitOfWork
+namespace GoGo.Infrastructure.Uow
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -16,7 +16,7 @@ namespace GoGo.Infrastructure.UnitOfWork
         public IUserRepository Users { get; private set; }
         public IEnrollmentRepository Enrollments { get; private set; }
 
-        public UnitOfWork(GoGoDbContext context) 
+        public UnitOfWork(GoGoDbContext context)
         {
             _context = context;
             Courses = new CourseRepository(_context);
