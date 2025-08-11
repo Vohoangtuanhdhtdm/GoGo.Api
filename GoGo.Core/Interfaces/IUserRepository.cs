@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace GoGo.Core.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserProfileRepository
     {
-        Task<IEnumerable<User>> GetUserAllAsync();
-        Task<User?> GetUserByIdAsync(Guid id);
-        Task AddUserAsync(User user);
-        Task UpdateUserAsync(User user);
-        Task DeleteUserAsync(Guid id);
+        Task<IEnumerable<UserProfile>> GetUserProfileAllAsync();
+        Task<UserProfile?> GetUserProfileByIdAsync(string id);
+        Task AddUserProfileAsync(UserProfile userProfile);
+        Task UpdateUserProfileAsync(UserProfile userProfile);
+        Task DeleteUserProfileAsync(string id);
     }
 }

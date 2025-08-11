@@ -9,7 +9,7 @@ namespace GoGo.Core.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         ICourseRepository Courses { get; }
-        IUserRepository Users { get; }
+        IUserProfileRepository UserProfiles { get; }
         IEnrollmentRepository Enrollments { get; }
 
         Task<int> SaveChangesAsync();

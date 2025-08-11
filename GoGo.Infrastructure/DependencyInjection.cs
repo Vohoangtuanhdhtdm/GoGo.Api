@@ -2,6 +2,7 @@
 using GoGo.Infrastructure.Data;
 using GoGo.Infrastructure.Repositories;
 using GoGo.Infrastructure.Uow;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,10 +17,12 @@ namespace GoGo.Infrastructure
     {
         public static IServiceCollection AddInfrastructureDI(this IServiceCollection services)
         {
+            // Cấu hình DbContext
             services.AddDbContext<GoGoDbContext>(options =>
             {
                 options.UseSqlServer("Server = MSI\\SQLEXPRESS; Database = GoGoDatabase; Trusted_Connection = True; TrustServerCertificate = true; MultipleActiveResultSets = true");
             });
+
 
             // Chỉ cần đăng ký IUnitOfWork. 
             // Nó sẽ chịu trách nhiệm cung cấp tất cả các repository cần thiết.
