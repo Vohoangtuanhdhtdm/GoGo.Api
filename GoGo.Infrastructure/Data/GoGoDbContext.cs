@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoGo.Infrastructure.Data
 {
-    public class GoGoDbContext : IdentityDbContext
+    public class GoGoDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
     
         public DbSet<UserProfile> UserProfile { get; set; }

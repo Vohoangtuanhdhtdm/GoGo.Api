@@ -14,7 +14,7 @@ public class UserProfileRepository : IUserProfileRepository
         _context = context;
     }
 
-    public async Task<UserProfile?> GetUserProfileByIdAsync(string id)
+    public async Task<UserProfile?> GetUserProfileByIdAsync(Guid id)
     {
         return await _context.UserProfile.FindAsync(id);
     }
@@ -35,7 +35,7 @@ public class UserProfileRepository : IUserProfileRepository
         return Task.CompletedTask;
     }
 
-    public async Task DeleteUserProfileAsync(string id)
+    public async Task DeleteUserProfileAsync(Guid id)
     {
         var UserProfileToDelete = await _context.UserProfile.FindAsync(id);
         if (UserProfileToDelete != null)
