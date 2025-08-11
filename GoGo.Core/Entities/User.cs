@@ -2,25 +2,27 @@
 
 namespace GoGo.Core.Entities
 {
-    public class User
+    // Id này sẽ là khóa chính và cũng là khóa ngoại
+    // trỏ tới AspNetUsers.Id
+    public class UserProfile
     {
         #region Thông tin cơ bản
-        public Guid Id { get; private set; }
+        public string Id { get; private set; }
         public string FullName { get; private set; }
         public string Email { get; private set; }
         public string? AvatarUrl { get; private set; }
-        public string PasswordHash { get; private set; }
+      
         public DateTime JoinedAt { get; private set; }
         #endregion
 
-        private User() { } // Dành cho EF Core
 
-        public User(string fullName, string email, string passwordHash)
+        private UserProfile() { } // Dành cho EF Core
+
+        public UserProfile(string id,string fullName, string email, string passwordHash)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             FullName = fullName;
             Email = email; // Cần có logic kiểm tra định dạng email ở tầng Application/Domain Service
-            PasswordHash = passwordHash;
             JoinedAt = DateTime.UtcNow;
         }
 
@@ -31,10 +33,7 @@ namespace GoGo.Core.Entities
             AvatarUrl = newAvatarUrl;
         }
 
-        public void ChangePassword(string newPasswordHash)
-        {
-            PasswordHash = newPasswordHash;
-        }
+        
         #endregion
     }
 }

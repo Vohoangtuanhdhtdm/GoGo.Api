@@ -5,42 +5,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoGo.Infrastructure.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserProfileRepository : IUserProfileRepository
 {
     private readonly GoGoDbContext _context;
 
-    public UserRepository(GoGoDbContext context)
+    public UserProfileRepository(GoGoDbContext context)
     {
         _context = context;
     }
 
-    public async Task<User?> GetByIdAsync(Guid id)
+    public async Task<UserProfile?> GetUserProfileByIdAsync(string id)
     {
-        return await _context.Users.FindAsync(id);
+        return await _context.UserProfile.FindAsync(id);
     }
 
-    public async Task<IEnumerable<User>> GetAllAsync()
+    public async Task<IEnumerable<UserProfile>> GetUserProfileAllAsync()
     {
-        return await _context.Users.ToListAsync();
+        return await _context.UserProfile.ToListAsync();
     }
 
-    public async Task AddAsync(User user)
+    public async Task AddUserProfileAsync(UserProfile UserProfile)
     {
-        await _context.Users.AddAsync(user);
+        await _context.UserProfile.AddAsync(UserProfile);
     }
 
-    public Task UpdateAsync(User user)
+    public Task UpdateUserProfileAsync(UserProfile UserProfile)
     {
-        _context.Users.Update(user);
+        _context.UserProfile.Update(UserProfile);
         return Task.CompletedTask;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteUserProfileAsync(string id)
     {
-        var userToDelete = await _context.Users.FindAsync(id);
-        if (userToDelete != null)
+        var UserProfileToDelete = await _context.UserProfile.FindAsync(id);
+        if (UserProfileToDelete != null)
         {
-            _context.Users.Remove(userToDelete);
+            _context.UserProfile.Remove(UserProfileToDelete);
         }
     }
 }
