@@ -10,9 +10,9 @@ namespace GoGo.Core.Interfaces
     public interface IUserProfileRepository
     {
         Task<IEnumerable<UserProfile>> GetUserProfileAllAsync();
-        Task<UserProfile?> GetUserProfileByIdAsync(string id);
+        Task<UserProfile?> GetUserProfileByIdAsync(Guid id);
         Task AddUserProfileAsync(UserProfile userProfile);
         Task UpdateUserProfileAsync(UserProfile userProfile);
-        Task DeleteUserProfileAsync(string id);
+        Task DeleteUserProfileAsync(Guid id);
     }
 }

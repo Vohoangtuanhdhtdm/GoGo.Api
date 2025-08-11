@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GoGo.Core.Entities
 {
@@ -7,7 +8,9 @@ namespace GoGo.Core.Entities
     public class UserProfile
     {
         #region Thông tin cơ bản
-        public string Id { get; private set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid Id { get; private set; }
         public string FullName { get; private set; }
         public string Email { get; private set; }
         public string? AvatarUrl { get; private set; }
@@ -18,7 +21,7 @@ namespace GoGo.Core.Entities
 
         private UserProfile() { } // Dành cho EF Core
 
-        public UserProfile(string id,string fullName, string email, string passwordHash)
+        public UserProfile(Guid id,string fullName, string email)
         {
             Id = id;
             FullName = fullName;

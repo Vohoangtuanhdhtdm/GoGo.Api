@@ -4,6 +4,7 @@ using GoGo.Infrastructure.Repositories;
 using GoGo.Infrastructure.Uow;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,23 @@ namespace GoGo.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructureDI(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructureDI(this IServiceCollection services, IConfiguration configuration)
         {
             // Cấu hình DbContext
             services.AddDbContext<GoGoDbContext>(options =>
             {
-                options.UseSqlServer("Server = MSI\\SQLEXPRESS; Database = GoGoDatabase; Trusted_Connection = True; TrustServerCertificate = true; MultipleActiveResultSets = true");
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+
+            // THÊM LẠI khối AddIdentity() đầy đủ
+            services.AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+            })
+            .AddEntityFrameworkStores<GoGoDbContext>()
+            .AddDefaultTokenProviders(); // Quan trọng: Cần cho việc reset password
 
 
             // Chỉ cần đăng ký IUnitOfWork. 
