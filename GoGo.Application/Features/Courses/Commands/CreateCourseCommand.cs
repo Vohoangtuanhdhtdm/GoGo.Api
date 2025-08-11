@@ -44,7 +44,7 @@ namespace GoGo.Application.Features.Courses.Commands
             );
 
             // 2. Dùng Repository để thêm đối tượng vào DbContext
-            await _unitOfWork.Courses.AddAsync(course);
+            await _unitOfWork.Courses.AddCourseAsync(course);
 
             // 3. Dùng Unit of Work để commit transaction
             await _unitOfWork.SaveChangesAsync();

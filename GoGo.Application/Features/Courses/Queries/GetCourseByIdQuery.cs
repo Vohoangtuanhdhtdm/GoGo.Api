@@ -23,7 +23,7 @@ namespace GoGo.Application.Features.Courses.Queries
 
         public async Task<CourseDto?> Handle(GetCourseByIdQuery query, CancellationToken cancellationToken)
         {
-            var course = await _unitOfWork.Courses.GetByIdAsync(query.Id);
+            var course = await _unitOfWork.Courses.GetCourseByIdAsync(query.Id);
 
             if (course == null)
             {

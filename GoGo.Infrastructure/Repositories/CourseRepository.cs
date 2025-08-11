@@ -19,7 +19,7 @@ namespace GoGo.Infrastructure.Repositories
             _context = context;
             
         }
-        public async Task<Course?> GetByIdAsync(Guid id)
+        public async Task<Course?> GetCourseByIdAsync(Guid id)
         {
             // Phải Include các thực thể con để tải toàn bộ Aggregate
             return await _context.Courses
@@ -27,22 +27,22 @@ namespace GoGo.Infrastructure.Repositories
                 .ThenInclude(m => m.Lessons)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
-        public async Task<IEnumerable<Course>> GetAllAsync()
+        public async Task<IEnumerable<Course>> GetCourseAllAsync()
         {
             // Khi lấy danh sách, thường không cần tải chi tiết để tối ưu hiệu năng
             return await _context.Courses.ToListAsync();
         }
-        public async Task AddAsync(Course course)
+        public async Task AddCourseAsync(Course course)
         {
             await _context.Courses.AddAsync(course);
         }
-        public Task UpdateAsync(Course course)
+        public Task UpdateCourseAsync(Course course)
         {
             // EF Core Change Tracker sẽ tự xử lý các thay đổi
             _context.Courses.Update(course);
             return Task.CompletedTask;
         }
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteCourseAsync(Guid id)
         {
             var courseToDelete = await _context.Courses.FindAsync(id);
             if (courseToDelete != null)
