@@ -28,7 +28,7 @@ namespace GoGo.Application.Features.Courses.Commands
         public async Task Handle(UpdateCourseCommand command, CancellationToken cancellationToken)
         {
             // 1. Tải Aggregate Root 'Course'
-            var course = await _unitOfWork.Courses.GetByIdAsync(command.Id);
+            var course = await _unitOfWork.Courses.GetCourseByIdAsync(command.Id);
 
             // 2. Kiểm tra sự tồn tại
             if (course == null)

@@ -14,7 +14,7 @@ public class EnrollmentRepository : IEnrollmentRepository
         _context = context;
     }
 
-    public async Task<Enrollment?> GetByIdAsync(Guid id)
+    public async Task<Enrollment?> GetByEnrollmentIdAsync(Guid id)
     {
         // Luôn Include các thực thể con cần thiết cho logic nghiệp vụ
         return await _context.EnrollCourses
@@ -22,19 +22,19 @@ public class EnrollmentRepository : IEnrollmentRepository
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 
-    public async Task<IEnumerable<Enrollment>> GetByCourseIdAsync(Guid courseId)
+    public async Task<IEnumerable<Enrollment>> GetEnrollmentByCourseIdAsync(Guid courseId)
     {
         return await _context.EnrollCourses
             .Where(e => e.CoursesId == courseId)
             .ToListAsync();
     }
 
-    public async Task AddAsync(Enrollment enrollment)
+    public async Task AddEnrollmentAsync(Enrollment enrollment)
     {
         await _context.EnrollCourses.AddAsync(enrollment);
     }
 
-    public Task UpdateAsync(Enrollment enrollment)
+    public Task UpdateEnrollmentAsync(Enrollment enrollment)
     {
         _context.EnrollCourses.Update(enrollment);
         return Task.CompletedTask;

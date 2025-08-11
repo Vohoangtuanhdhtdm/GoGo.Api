@@ -23,7 +23,7 @@ namespace GoGo.Application.Features.Courses.Queries
 
         public async Task<IEnumerable<CourseDto>> Handle(GetAllCoursesQuery query, CancellationToken cancellationToken)
         {
-            var courses = await _unitOfWork.Courses.GetAllAsync();
+            var courses = await _unitOfWork.Courses.GetCourseAllAsync();
 
             // Ánh xạ từ Domain Entity (Course) sang DTO (CourseDto)
             return courses.Select(course => new CourseDto(

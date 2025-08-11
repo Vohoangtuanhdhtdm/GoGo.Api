@@ -9,9 +9,9 @@ namespace GoGo.Core.Interfaces
 {
     public interface IEnrollmentRepository
     {
-        Task<IEnumerable<Enrollment>> GetByCourseIdAsync(Guid courseId);
-        Task<Enrollment?> GetByIdAsync(Guid id);
-        Task AddAsync(Enrollment enrollment);
-        Task UpdateAsync(Enrollment enrollment);
+        Task<IEnumerable<Enrollment>> GetEnrollmentByCourseIdAsync(Guid courseId);
+        Task<Enrollment?> GetByEnrollmentIdAsync(Guid id);
+        Task AddEnrollmentAsync(Enrollment enrollment);
+        Task UpdateEnrollmentAsync(Enrollment enrollment);
     }
 }
