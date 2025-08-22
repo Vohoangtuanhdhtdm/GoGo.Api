@@ -54,6 +54,8 @@ namespace GoGo.Core.Entities
         }
 
         #region Các phương thức hành vi
+
+        #region Hành vi Của Course
         public void Publish()
         {
             if (!_modules.Any(m => m.Lessons.Any()))
@@ -62,20 +64,55 @@ namespace GoGo.Core.Entities
             Status = "Published";
             UpdatedAt = DateTime.UtcNow;
         }
-
-        public void UpdateDetails(string name, string description, string skillLevel)
+        public void UpdateDetails(string name, string description, string skillLevel, string thumbnailUrl)
         {
             Name = name;
             Description = description;
             SkillLevel = skillLevel;
+            ThumbnailUrl = thumbnailUrl;
             UpdatedAt = DateTime.UtcNow;
         }
+        #endregion
 
-        public void AddModule(string title, string? description)
+        #region Hành vi đến Module
+        public Module AddModule(string title, string? description)
         {
             var newModule = new Module(title, description, _modules.Count + 1, Id);
             _modules.Add(newModule);
+            UpdatedAt = DateTime.UtcNow; // Thêm dòng này để cập nhật thời gian
+
+            // Trả về module vừa được tạo
+            return newModule;
         }
+        public void UpdateModuleDetails(Guid moduleId, string newTitle, string? newDescription)
+        {
+            
+            var moduleToUpdate = _modules.FirstOrDefault(m => m.Id == moduleId);
+
+            if (moduleToUpdate == null)
+            {
+                throw new InvalidOperationException($"Module with ID {moduleId} not found in this course.");
+            }
+
+    
+            moduleToUpdate.UpdateDetails(newTitle, newDescription);
+
+            // 3. Cập nhật dấu thời gian của toàn bộ khóa học
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void RemoveModule(Guid moduleId)
+        {
+            var moduleToRemove = _modules.FirstOrDefault(m => m.Id == moduleId);
+            if (moduleToRemove != null)
+            {
+                _modules.Remove(moduleToRemove);
+                RecalculateDuration(); 
+                UpdatedAt = DateTime.UtcNow;
+            }
+        }
+        #endregion
+
 
         // Gọi sau khi thêm/xóa bài học trong Module
         public void RecalculateDuration()

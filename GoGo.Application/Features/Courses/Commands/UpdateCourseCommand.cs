@@ -13,7 +13,8 @@ namespace GoGo.Application.Features.Courses.Commands
         Guid Id,
         string Name,
         string Description,
-        string SkillLevel
+        string SkillLevel,
+        string thumbnailUrl
     ) : IRequest;
 
     public class UpdateCourseCommandHandler : IRequestHandler<UpdateCourseCommand>
@@ -39,7 +40,7 @@ namespace GoGo.Application.Features.Courses.Commands
             }
 
             // 3. Gọi phương thức hành vi của Domain Entity
-            course.UpdateDetails(command.Name, command.Description, command.SkillLevel);
+            course.UpdateDetails(command.Name, command.Description, command.SkillLevel, command.thumbnailUrl);
 
             // 4. Lưu lại thay đổi
             await _unitOfWork.SaveChangesAsync();

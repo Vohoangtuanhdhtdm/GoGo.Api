@@ -10,7 +10,7 @@ namespace GoGo.Core.Entities
         #region Thông tin cơ bản
         public Guid Id { get; private set; }
         public string Title { get; private set; }
-        public string? Description { get; private set; }
+        public string Description { get; private set; }
         public int DisplayOrder { get; private set; }
         #endregion
 
@@ -25,13 +25,18 @@ namespace GoGo.Core.Entities
         private Module() { } // Dành cho EF Core
 
         // Constructor 'internal' để chỉ có thể được gọi từ bên trong cùng assembly (từ Course)
-        internal Module(string title, string? description, int displayOrder, Guid courseId)
+        internal Module(string title, string description, int displayOrder, Guid courseId)
         {
             Id = Guid.NewGuid();
             Title = title;
             Description = description;
             DisplayOrder = displayOrder;
             CoursesId = courseId;
+        }
+        internal void UpdateDetails(string newTitle, string newDescription)
+        {
+            Title = newTitle;
+            Description = newDescription;
         }
 
         #region Các phương thức hành vi

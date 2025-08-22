@@ -1,4 +1,5 @@
-﻿using GoGo.Application.Dto;
+﻿
+using GoGo.Core.Dtos;
 using GoGo.Core.Interfaces;
 using MediatR;
 using System;

@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace GoGo.Application.Features.Courses.Commands
 {
-    // Dùng record để định nghĩa một đối tượng dữ liệu bất biến
-    // IRequest<Guid> có nghĩa là: "Khi command này được xử lý thành công, nó sẽ trả về một Guid"
+   
     public record CreateCourseCommand(
     string Name,
     string Description,

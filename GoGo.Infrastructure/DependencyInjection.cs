@@ -38,6 +38,7 @@ namespace GoGo.Infrastructure
             // Chỉ cần đăng ký IUnitOfWork. 
             // Nó sẽ chịu trách nhiệm cung cấp tất cả các repository cần thiết.
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
 
             return services;
         }
