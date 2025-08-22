@@ -50,5 +50,7 @@ namespace GoGo.Infrastructure.Repositories
                 _context.Courses.Remove(courseToDelete);
             }
         }
+
+        
     }
 }
