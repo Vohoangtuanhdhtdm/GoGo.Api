@@ -1,4 +1,5 @@
 ﻿using GoGo.Application.Features.Courses.Commands;
+using GoGo.Application.Features.Courses.Module.Commands;
 using GoGo.Application.Features.Courses.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -56,8 +57,30 @@ namespace GoGo.Api.Controllers
             var course = await _mediator.Send(new GetCourseByIdQuery(id));
             return course != null ? Ok(course) : NotFound();
         }
+
+        // --- ENDPOINT MỚI ĐỂ TẠO MODULE ---
+        // POST /api/courses/{courseId}/modules
+        [HttpPost("{courseId}/modules")]
+        public async Task<IActionResult> CreateModule(Guid courseId, [FromBody] CreateModuleRequest request)
+        {
+            // 1. Tạo command từ dữ liệu của route và request body
+            var command = new CreateModuleCommand(
+                request.Title,
+                request.Description,
+                courseId // Lấy courseId từ URL
+            );
+
+            // 2. Gửi command cho MediatR và chờ kết quả
+            var result = await _mediator.Send(command);
+
+            // 3. Trả về response 201 Created
+            // Giả sử bạn sẽ có một ModulesController với endpoint GetModuleById
+            return CreatedAtAction("GetModuleById", "Modules", new { id = result.id }, result);
+        }
     }
 }
 
 // DTO cho request Update, để tách biệt với Command
 public record UpdateCourseRequest(string Name, string Description, string SkillLevel);
+// DTO cho request tạo Module
+public record CreateModuleRequest(string Title, string Description);
