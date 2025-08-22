@@ -38,7 +38,7 @@ namespace GoGo.Infrastructure.Repositories
         }
         public Task UpdateCourseAsync(Course course)
         {
-            // EF Core Change Tracker sẽ tự xử lý các thay đổi
+          
             _context.Courses.Update(course);
             return Task.CompletedTask;
         }

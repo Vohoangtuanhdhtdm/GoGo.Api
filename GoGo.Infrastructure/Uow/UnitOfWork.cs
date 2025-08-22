@@ -15,6 +15,7 @@ namespace GoGo.Infrastructure.Uow
         public ICourseRepository Courses { get; private set; }
         public IUserProfileRepository UserProfiles { get; private set; }
         public IEnrollmentRepository Enrollments { get; private set; }
+        public IModuleRepository Modules { get; private set; }
 
         public UnitOfWork(GoGoDbContext context)
         {
@@ -22,6 +23,8 @@ namespace GoGo.Infrastructure.Uow
             Courses = new CourseRepository(_context);
             UserProfiles = new UserProfileRepository(_context);
             Enrollments = new EnrollmentRepository(_context);
+            Modules = new ModuleRepository(_context);
+
         }
         public Task<int> SaveChangesAsync()
         {

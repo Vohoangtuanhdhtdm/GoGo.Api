@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoGo.Application.Dto
+namespace GoGo.Core.Dtos
 {
     public record CourseDto(
         Guid Id,
