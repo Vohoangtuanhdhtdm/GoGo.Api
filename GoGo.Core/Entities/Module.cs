@@ -40,11 +40,32 @@ namespace GoGo.Core.Entities
         }
 
         #region Các phương thức hành vi
-        public void AddLesson(string title, string videoUrl, int durationInSeconds, string? content = null)
+        public Lesson AddLesson(
+            string title,
+            string? description,
+            string videoUrl,
+            string? content,
+            int duration,
+            int displayOrder,
+            Guid moduleId
+        )
         {
-            var newLesson = new Lesson(title, videoUrl, content, durationInSeconds, _lessons.Count + 1, Id);
-            _lessons.Add(newLesson);
+            var lesson = new Lesson(
+                title,
+                videoUrl,
+                description,
+                content,
+                duration,
+                displayOrder,
+                moduleId
+            );
+
+            // nếu bạn có List<Lesson> trong Module
+            _lessons.Add(lesson);
+
+            return lesson;
         }
+
         #endregion
     }
 }
