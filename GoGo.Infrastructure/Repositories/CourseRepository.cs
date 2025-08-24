@@ -29,22 +29,20 @@ namespace GoGo.Infrastructure.Repositories
         }
         public async Task<IEnumerable<Course>> GetCourseAllAsync()
         {
-            // Khi lấy danh sách, thường không cần tải chi tiết để tối ưu hiệu năng
             return await _context.Courses.ToListAsync();
         }
         public async Task AddCourseAsync(Course course)
         {
             await _context.Courses.AddAsync(course);
         }
-        public Task UpdateCourseAsync(Course course)
-        {
-          
-            _context.Courses.Update(course);
-            return Task.CompletedTask;
-        }
+     
         public async Task DeleteCourseAsync(Guid id)
         {
-            var courseToDelete = await _context.Courses.FindAsync(id);
+           
+            var courseToDelete = await _context.Courses
+                .Include(c => c.Modules) 
+                .FirstOrDefaultAsync(c => c.Id == id);
+
             if (courseToDelete != null)
             {
                 _context.Courses.Remove(courseToDelete);

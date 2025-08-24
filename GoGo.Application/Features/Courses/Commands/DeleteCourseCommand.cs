@@ -21,7 +21,7 @@ namespace GoGo.Application.Features.Courses.Commands
 
         public async Task Handle(DeleteCourseCommand command, CancellationToken cancellationToken)
         {
-            // Repository đã xử lý việc kiểm tra sự tồn tại
+        
             await _unitOfWork.Courses.DeleteCourseAsync(command.Id);
             await _unitOfWork.SaveChangesAsync();
         }

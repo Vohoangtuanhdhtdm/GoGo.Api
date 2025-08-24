@@ -12,5 +12,9 @@ namespace GoGo.Core.Interfaces
     {
         Task AddModuleAsync(Module module);
         Task<IEnumerable<ModuleDto>> GetModuleByCourseIdAsync(Guid courseId, CancellationToken cancellationToken);
+        Task<Module?> GetModuleByIdAsync(Guid moduleId, CancellationToken cancellationToken);
+        Task DeleteModuleAsync(Guid id);
     }
+    
+
 }

@@ -33,7 +33,7 @@ namespace GoGo.Core.Entities
             DisplayOrder = displayOrder;
             CoursesId = courseId;
         }
-        internal void UpdateDetails(string newTitle, string newDescription)
+        public void UpdateModuleDetails(string newTitle, string newDescription)
         {
             Title = newTitle;
             Description = newDescription;
