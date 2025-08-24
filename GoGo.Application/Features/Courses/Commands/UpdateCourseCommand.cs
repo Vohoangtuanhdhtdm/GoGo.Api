@@ -1,20 +1,20 @@
 ﻿using GoGo.Core.Interfaces;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GoGo.Application.Features.Courses.Commands
 {
-    // IRequest (hoặc IRequest<Unit>) nghĩa là command này không trả về dữ liệu gì sau khi thực thi
+    // IRequest nghĩa là command này không trả về dữ liệu gì sau khi thực thi
     public record UpdateCourseCommand(
         Guid Id,
         string Name,
         string Description,
         string SkillLevel,
-        string thumbnailUrl
+        string ThumbnailUrl,
+        decimal? Price = null,
+        decimal? PriceSale = null
     ) : IRequest;
 
     public class UpdateCourseCommandHandler : IRequestHandler<UpdateCourseCommand>
@@ -34,17 +34,23 @@ namespace GoGo.Application.Features.Courses.Commands
             // 2. Kiểm tra sự tồn tại
             if (course == null)
             {
-                // Trong một ứng dụng thực tế, bạn nên ném ra một Exception tùy chỉnh (ví dụ: NotFoundException)
-                // và xử lý nó ở một middleware để trả về lỗi 404.
                 throw new Exception($"Course with Id {command.Id} not found.");
             }
 
-            // 3. Gọi phương thức hành vi của Domain Entity
-            course.UpdateDetails(command.Name, command.Description, command.SkillLevel, command.thumbnailUrl);
+            // 3. Chỉnh sửa entity thông qua method domain
+            course.Update(
+                command.Name,
+                command.Description,
+                command.SkillLevel,
+                command.ThumbnailUrl,
+                command.Price,
+                command.PriceSale
+            );
+            // repository update
+           // await _unitOfWork.Courses.UpdateCourseAsync(course);
 
-            // 4. Lưu lại thay đổi
+            // 4. Lưu lại thay đổi (EF Core tự track entity)
             await _unitOfWork.SaveChangesAsync();
         }
     }
-
 }

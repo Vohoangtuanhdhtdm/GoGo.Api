@@ -15,8 +15,4 @@
     <ProjectReference Include="..\GoGo.Core\GoGo.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Courses\Module\Queries\" />
-  </ItemGroup>
-
 </Project>

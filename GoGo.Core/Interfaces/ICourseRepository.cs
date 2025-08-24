@@ -12,7 +12,6 @@ namespace GoGo.Core.Interfaces
         Task<IEnumerable<Course>> GetCourseAllAsync();
         Task<Course?> GetCourseByIdAsync(Guid id);  // Trả về nullable để thể hiện có thể không tìm thấy
         Task AddCourseAsync(Course course);
-        Task UpdateCourseAsync(Course course);
         Task DeleteCourseAsync(Guid id);
     }
 }

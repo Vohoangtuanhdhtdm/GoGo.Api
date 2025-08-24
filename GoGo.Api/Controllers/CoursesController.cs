@@ -30,7 +30,16 @@ namespace GoGo.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCourse(Guid id, [FromBody] UpdateCourseRequest request)
         {
-            var command = new UpdateCourseCommand(id, request.Name, request.Description, request.SkillLevel, request.ThumbnailUrl);
+           
+            var command = new UpdateCourseCommand(
+                id,
+                request.Name,
+                request.Description,
+                request.SkillLevel,
+                request.ThumbnailUrl,
+                request.Price,
+                request.PriceSale
+            );
             await _mediator.Send(command);
             return NoContent(); // 204 No Content
         }
@@ -59,24 +68,7 @@ namespace GoGo.Api.Controllers
             return course != null ? Ok(course) : NotFound();
         }
 
-        
-        [HttpPost("{courseId}/modules")]
-        public async Task<IActionResult> CreateModule(Guid courseId, [FromBody] CreateModuleRequest request)
-        {
-        
-            var command = new CreateModuleCommand(
-                request.Title,
-                request.Description,
-                courseId // Lấy courseId từ URL
-            );
-
-           
-            var result = await _mediator.Send(command);
-
-            // 3. Trả về response 201 Created
-            // Giả sử bạn sẽ có một ModulesController với endpoint GetModuleById
-            return Ok(result);
-        }
+     
     }
 }
 

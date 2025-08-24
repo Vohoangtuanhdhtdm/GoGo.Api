@@ -25,6 +25,18 @@ namespace GoGo.Infrastructure.Repositories
             await _context.Module.AddAsync(module);
         }
 
+        public async Task DeleteModuleAsync(Guid moduleId)
+        {
+           var module = await _context.Module
+                .Include(c => c.Lessons)
+                .FirstOrDefaultAsync(c => c.Id == moduleId);
+
+            if (module != null)
+            {
+                _context.Module.Remove(module);
+            }
+        }
+
         public async Task<IEnumerable<ModuleDto>> GetModuleByCourseIdAsync(Guid courseId, CancellationToken cancellationToken)
         {
             return await _context.Module 
@@ -32,6 +44,16 @@ namespace GoGo.Infrastructure.Repositories
                  .OrderBy(m => m.DisplayOrder)
                  .Select(m => new ModuleDto(m.Id, m.Title, m.Description, m.DisplayOrder))
                  .ToListAsync(cancellationToken);
+        }
+
+        public async Task<Module?> GetModuleByIdAsync(Guid moduleId, CancellationToken cancellationToken)
+        {
+           var module = await _context.Module.FirstOrDefaultAsync(m => m.Id == moduleId);
+            if (module == null)
+            {
+                return null;
+            }
+            return module;
         }
     }
 }
