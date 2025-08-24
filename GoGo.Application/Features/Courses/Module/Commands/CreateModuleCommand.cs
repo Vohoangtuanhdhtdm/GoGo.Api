@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace GoGo.Application.Features.Courses.Module.Commands
 {
-    public record CreateModuleResponse(Guid Id,string Title, string Description);
+    public record CreateModuleResponse(Guid Id, string Title, string Description);
     public record CreateModuleCommand(
         string Title,
-        string Description, 
+        string Description,
         Guid CourseId
     ) : IRequest<CreateModuleResponse>;
     public class CreateModuleCommandHandler : IRequestHandler<CreateModuleCommand, CreateModuleResponse>

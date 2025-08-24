@@ -1,6 +1,5 @@
 ﻿using GoGo.Api.Contracts;
 using GoGo.Application.Features.Courses.Commands;
-using GoGo.Application.Features.Courses.Module.Commands;
 using GoGo.Application.Features.Courses.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

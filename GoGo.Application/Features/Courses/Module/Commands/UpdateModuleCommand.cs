@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GoGo.Application.Features.Courses.Module.Commands
 {
-    public record UpdateModuleCommand (Guid moduleId, string newTitle, string newDescription) : IRequest;
+    public record UpdateModuleCommand(Guid moduleId, string newTitle, string newDescription) : IRequest;
 
     public class UpdateModuleCommandHandler : IRequestHandler<UpdateModuleCommand>
     {

@@ -26,6 +26,3 @@ namespace GoGo.Core.Entities
     }
 }
 
-
-// Bắt buộc phải thêm private LessonCompletion() {} cho LessonCompletion
-// vì bạn đã tạo một constructor khác,làm mất đi cái "miễn phí" kia.

@@ -18,23 +18,47 @@ namespace GoGo.Core.Entities
         public Guid ModuleId { get; private set; }
         #endregion
 
-        private Lesson() { } // Dành cho EF Core
+        private Lesson() { } 
 
         internal Lesson(
             string title,
             string videoUrl,
             string? content,
+            string? description,
             int duration,
             int displayOrder,
             Guid moduleId)
         {
             Id = Guid.NewGuid();
             Title = title;
+            Description = description;
             VideoUrl = videoUrl;
             Content = content;
             Duration = duration;
             DisplayOrder = displayOrder;
             ModuleId = moduleId;
         }
+
+        #region Phương thức hành vi
+
+        public void UpdateLessonDetail
+        (
+           string title,
+           string? description,
+           string videoUrl,
+           string? content,
+           int displayOrder,
+           int duration
+        )
+        {
+            Title = title;
+            VideoUrl = videoUrl;
+            Content = content;
+            Duration = duration;
+            Description = description;
+            DisplayOrder = displayOrder;
+        }
+
+        #endregion
     }
 }
