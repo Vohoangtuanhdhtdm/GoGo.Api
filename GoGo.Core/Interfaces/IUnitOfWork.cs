@@ -13,6 +13,7 @@ namespace GoGo.Core.Interfaces
         IEnrollmentRepository Enrollments { get; }
         IModuleRepository Modules { get; }
         ILessonRepository Lessons { get; }
+        
 
         Task<int> SaveChangesAsync();
     }

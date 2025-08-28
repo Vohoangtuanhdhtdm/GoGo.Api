@@ -17,6 +17,7 @@ namespace GoGo.Infrastructure.Uow
         public IEnrollmentRepository Enrollments { get; private set; }
         public IModuleRepository Modules { get; private set; }
         public ILessonRepository Lessons { get; private set; }
+      
 
         public UnitOfWork(GoGoDbContext context)
         {
