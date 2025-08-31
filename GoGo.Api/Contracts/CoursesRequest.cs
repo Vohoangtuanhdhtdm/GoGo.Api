@@ -37,7 +37,7 @@
 
     public record UpdateLessonRequest(
         string Title,
-        string? Description,
+        string Description,
         string VideoUrl,
         string? Content,
         int Duration,
