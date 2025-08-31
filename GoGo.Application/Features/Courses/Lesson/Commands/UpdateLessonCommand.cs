@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace GoGo.Application.Features.Courses.Lesson.Commands
 {
-    public record UpdateLessonCommand(Guid lessonId, string title,
+    public record UpdateLessonCommand(
+        Guid lessonId, 
+        string title,
        string description,
        string videoUrl,
        string? content,
@@ -30,7 +32,7 @@ namespace GoGo.Application.Features.Courses.Lesson.Commands
                 throw new Exception($"lesson with Id {request.lessonId} not found.");
             }
             lesson.UpdateLessonDetail
-                (request.title, request.content, request.description, request.videoUrl, request.duration, request.displayOrder);
+                (request.title, request.description, request.videoUrl, request.content, request.displayOrder, request.duration);
         
             await _unitOfWork.SaveChangesAsync();
         }

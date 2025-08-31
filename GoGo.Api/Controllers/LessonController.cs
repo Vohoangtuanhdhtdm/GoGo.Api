@@ -59,8 +59,9 @@ namespace GoGo.Api.Controllers
                 request.Description,
                 request.VideoUrl,
                 request.Content,
-                request.Duration,
-                request.DisplayOrder
+                request.DisplayOrder,
+                request.Duration
+             
             );
             await _mediator.Send(command);
             return Ok();
