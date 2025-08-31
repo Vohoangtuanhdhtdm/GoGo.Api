@@ -47,6 +47,7 @@ namespace GoGo.Application.Features.Courses.Lesson.Commands
                 Description = request.description,
                 VideoUrl = request.videoUrl,
                 Content = request.content,
+                Duration = request.duration,
                 DisplayOrder = request.displayOrder,
                 ModuleId = request.moduleId,
             };

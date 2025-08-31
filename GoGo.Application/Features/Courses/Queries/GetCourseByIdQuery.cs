@@ -34,6 +34,7 @@ namespace GoGo.Application.Features.Courses.Queries
             return new CourseDto(
                 course.Id,
                 course.Name,
+                course.Description,
                 course.ThumbnailUrl,
                 course.Price,
                 course.SkillLevel

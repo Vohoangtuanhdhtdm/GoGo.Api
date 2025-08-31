@@ -28,8 +28,8 @@ namespace GoGo.Application.Features.Courses.Lesson.Queries
             {
                 Id = l.Id,
                 Title = l.Title,
-                Description = l.Description,
                 VideoUrl = l.VideoUrl,
+                Description = l.Description,
                 Content = l.Content,
                 Duration = l.Duration,
                 DisplayOrder = l.DisplayOrder,
