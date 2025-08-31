@@ -24,9 +24,9 @@ namespace GoGo.Api.Controllers
         {
             var command = new CreateLessonCommand(
                 request.Title,
-                request.Content,
                 request.Description,
                 request.VideoUrl,
+                request.Content,
                 request.Duration,
                 request.DisplayOrder,
                 moduleId
