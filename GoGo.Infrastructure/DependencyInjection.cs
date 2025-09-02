@@ -32,11 +32,12 @@ namespace GoGo.Infrastructure
                 options.Password.RequiredLength = 6;
             })
             .AddEntityFrameworkStores<GoGoDbContext>()
+            .AddRoles<IdentityRole<Guid>>() // Dùng để phân quyền
             .AddDefaultTokenProviders(); // Quan trọng: Cần cho việc reset password
 
 
-            // Chỉ cần đăng ký IUnitOfWork. 
-            // Nó sẽ chịu trách nhiệm cung cấp tất cả các repository cần thiết.
+           
+          // Chịu trách nhiệm cung cấp tất cả các repository cần thiết.
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         
 

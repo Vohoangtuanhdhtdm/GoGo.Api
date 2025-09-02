@@ -71,4 +71,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    await DataSeeder.SeedRolesAndAdminAsync(scope.ServiceProvider);
+}
+
 app.Run();
