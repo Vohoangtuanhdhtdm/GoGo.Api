@@ -47,6 +47,10 @@ namespace GoGo.Api.Controllers
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
 
+            // GÁN VAI TRÒ "MEMBER" CHO NGƯỜI DÙNG MỚI
+            await _userManager.AddToRoleAsync(identityUser, "Member");
+
+
             // Tạo ánh xạ dữ liệu qua UserProfile
             var userProfile = new UserProfile(identityUser.Id, request.FullName, identityUser.Email);
             await _unitOfWork.UserProfiles.AddUserProfileAsync(userProfile);
@@ -71,18 +75,27 @@ namespace GoGo.Api.Controllers
                 return Unauthorized("User profile not found.");
 
             var userProfileDto = new UserProfileDto(userProfile.Id, userProfile.FullName, user.Email);
-            var token = GenerateJwtToken(user);
+            var token = await GenerateJwtToken(user);
 
             return Ok(new AuthResponseDto(token, userProfileDto));
         }
-        private string GenerateJwtToken(IdentityUser<Guid> user)
+        private async Task<string> GenerateJwtToken(IdentityUser<Guid> user)
         {
+            // Lấy các vai trò của người dùng
+            var roles = await _userManager.GetRolesAsync(user);
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Email, user.Email ?? "--"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+
+            // Thêm các role claims vào danh sách
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var token = new JwtSecurityToken(
