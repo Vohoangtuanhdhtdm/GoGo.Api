@@ -52,8 +52,8 @@ namespace GoGo.Core.Entities
         {
             var lesson = new Lesson(
                 title,
-                videoUrl,
                 description,
+                videoUrl,
                 content,
                 duration,
                 displayOrder,
