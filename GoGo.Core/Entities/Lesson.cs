@@ -22,9 +22,9 @@ namespace GoGo.Core.Entities
 
         internal Lesson(
             string title,
+             string? description,
             string videoUrl,
             string? content,
-            string? description,
             int duration,
             int displayOrder,
             Guid moduleId)
