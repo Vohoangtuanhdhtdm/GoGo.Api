@@ -13,4 +13,12 @@ namespace GoGo.Core.Dtos
         string? AvatarUrl,
         DateTime JoinedAt
     );
+    public record UserDtoFull
+    (
+        Guid UserId,
+        string FullName,
+        string Email,
+        string? AvatarUrl,
+        DateTime JoinedAt
+    );
 }
